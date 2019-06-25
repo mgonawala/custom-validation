@@ -20,8 +20,10 @@ public class MappingImpl implements IMappingInterface {
         ReflectionUtils.doWithFields(baseModel.getClass(),(field) ->{
             if(parameters.keySet().contains(field.getName())){
                 beanWrapper.setPropertyValue(field.getName(),parameters.get(field.getName()));
+                beanWrapper.getWrappedInstance();
             }
         });
+
         return baseModel;
     }
 }

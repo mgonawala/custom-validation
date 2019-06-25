@@ -1,10 +1,9 @@
 package com.example.validation;
 
-import com.example.validation.interfaces.BMBValidationStrategy;
-import com.example.validation.interfaces.IValidationStrategy;
-import com.example.validation.interfaces.WEBValidationStrategy;
+import com.example.validation.interfaces.*;
 import com.example.validation.model.BaseModel;
 import com.example.validation.model.ChildClass;
+import com.example.validation.model.FBModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -25,16 +24,26 @@ public class Configurations {
 
     @Bean("webStrategy")
     public IValidationStrategy getWEBValidationStrategy(){
-        return new WEBValidationStrategy();
+        IValidationStrategy strategy = new WEBValidationStrategy();
+        strategy.getRules().add(mandatoryRule());
+        return  strategy;
     }
 
     @Bean("bmbStrategy")
     public IValidationStrategy getBMBValidationStrategy(){
-        return new BMBValidationStrategy();
+        IValidationStrategy strategy = new WEBValidationStrategy();
+        strategy.getRules().add(mandatoryRule());
+        return  strategy;
+    }
+
+    @Bean("fbStrategy")
+    public IValidationStrategy getFBValidationStrategy(){
+        IValidationStrategy strategy = new WEBValidationStrategy();
+        strategy.getRules().add(mandatoryRule());
+        return  strategy;
     }
 
     @Bean("WEB")
-    @RequestScope
     public BaseModel getWEBModel(){
         ChildClass childClass = new ChildClass();
         childClass.setValidation(getWEBValidationStrategy());
@@ -43,11 +52,52 @@ public class Configurations {
 
 
     @Bean("BMB")
-    @RequestScope
     public BaseModel getBMBModel(){
         ChildClass childClass = new ChildClass();
         childClass.setValidation(getBMBValidationStrategy());
         return childClass;
     }
 
+    @Bean("FB")
+    public BaseModel getFbModel(){
+        BaseModel fbModel = new FBModel();
+        fbModel.setValidation(getBMBValidationStrategy());
+        return fbModel;
+    }
+
+    @Bean("WA")
+    public BaseModel getWModel(){
+        BaseModel fbModel = new FBModel();
+        fbModel.setValidation(getBMBValidationStrategy());
+        return fbModel;
+    }
+    /*@Bean
+    public IRule web_mandatory(){
+        MandatoryRule rule = new MandatoryRule();
+        rule.getMandatoryFields().add("firstName");
+        rule.getMandatoryFields().add("lastName");
+        rule.getMandatoryFields().add("email");
+        return  rule;
+    }
+
+    @Bean
+    public IRule bmb_mandatory(){
+        MandatoryRule rule = new MandatoryRule();
+        rule.getMandatoryFields().add("firstName");
+        rule.getMandatoryFields().add("lastName");
+        return  rule;
+    }
+
+    @Bean
+    public IRule fb_mandatory(){
+        MandatoryRule rule = new MandatoryRule();
+        rule.getMandatoryFields().add("firstName");
+        rule.getMandatoryFields().add("lastName");
+        rule.getMandatoryFields().add("fbAppVesion");
+        return  rule;
+    }*/
+    @Bean
+    public IRule mandatoryRule(){
+        return new MandatoryRule();
+    }
 }

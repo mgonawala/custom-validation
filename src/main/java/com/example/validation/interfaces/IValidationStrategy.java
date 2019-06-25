@@ -2,6 +2,8 @@ package com.example.validation.interfaces;
 
 import com.example.validation.model.BaseModel;
 
+import java.util.List;
+
 /**
  *
  * Interface to use for strategy pattern.
@@ -10,5 +12,10 @@ import com.example.validation.model.BaseModel;
  */
 public interface IValidationStrategy {
 
-    public boolean isValid(BaseModel baseModel);
+    boolean isValid(BaseModel baseModel);
+
+    void setRules(List<IRule> rules);
+
+    List<IRule> getRules();
+
 }

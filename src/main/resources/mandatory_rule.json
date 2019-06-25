@@ -1,0 +1,12 @@
+{
+
+  "FB": [
+    "firstName","lastName","fbAppVesion"
+  ],
+  "BMB": [
+    "firstName","lastName"
+  ],
+  "WA": [
+    "firstName","lastName"
+  ]
+}

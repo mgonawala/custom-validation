@@ -37,6 +37,7 @@ public class ControllerAspect {
         String channel = (String) args[0];
         args[2] = modelFactory.getModel(channel);
         BaseModel baseModel = iMappingInterface.mapModel((BaseModel)args[2], parameters);
+        baseModel.setChannel(channel);
         if(baseModel.getValidation().isValid(baseModel)){
             joinPoint.proceed();
         }

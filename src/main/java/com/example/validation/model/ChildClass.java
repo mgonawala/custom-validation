@@ -24,4 +24,5 @@ public class ChildClass extends BaseModel {
     public void setValidation(IValidationStrategy validationStrategy) {
         this.validation = validationStrategy;
     }
+
 }
